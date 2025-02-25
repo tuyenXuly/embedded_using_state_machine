@@ -1,0 +1,28 @@
+--cpu Cortex-M3
+"005protimer_st\startup_stm32f103xb.o"
+"005protimer_st\main.o"
+"005protimer_st\stm32f1xx_it.o"
+"005protimer_st\stm32f1xx_hal_msp.o"
+"005protimer_st\stm32f1xx_hal_gpio_ex.o"
+"005protimer_st\stm32f1xx_hal_i2c.o"
+"005protimer_st\stm32f1xx_hal.o"
+"005protimer_st\stm32f1xx_hal_rcc.o"
+"005protimer_st\stm32f1xx_hal_rcc_ex.o"
+"005protimer_st\stm32f1xx_hal_gpio.o"
+"005protimer_st\stm32f1xx_hal_dma.o"
+"005protimer_st\stm32f1xx_hal_cortex.o"
+"005protimer_st\stm32f1xx_hal_pwr.o"
+"005protimer_st\stm32f1xx_hal_flash.o"
+"005protimer_st\stm32f1xx_hal_flash_ex.o"
+"005protimer_st\stm32f1xx_hal_exti.o"
+"005protimer_st\stm32f1xx_hal_tim.o"
+"005protimer_st\stm32f1xx_hal_tim_ex.o"
+"005protimer_st\system_stm32f1xx.o"
+"005protimer_st\lcd_i2c_lib.o"
+"005protimer_st\lcd_i2c_lib_1.o"
+"005protimer_st\main_user.o"
+"005protimer_st\pro_timer_state_mach.o"
+--strict --scatter "005Protimer_ST\005Protimer_ST.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "005Protimer_ST.map" -o 005Protimer_ST\005Protimer_ST.axf
