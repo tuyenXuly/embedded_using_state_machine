@@ -1,0 +1,510 @@
+###############################################################################
+#
+# IAR ELF Linker V9.32.2.340/W64 for ARM                  19/Oct/2026  00:02:59
+# Copyright 2007-2023 IAR Systems AB.
+#
+#    Output file  =
+#        D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Exe\007ClockAlarm.out
+#    Map file     =
+#        D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\List\007ClockAlarm.map
+#    Command line =
+#        -f "D:\Embedded using State Machines\Part 10 UML HSM excercise using
+#        QM tool\007ClockAlarm\EWARM\007ClockAlarm\Exe\007ClockAlarm.out.rsp"
+#        ("D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\qm\ClockAlarm_SM.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Application\User\Core\main.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\qpc\src\qf\qep_hsm.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\qpc\src\qf\qep_msm.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\qpc\src\qf\qf_act.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\qpc\src\qf\qf_actq.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\qpc\src\qf\qf_defer.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\qpc\src\qf\qf_dyn.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\qpc\src\qf\qf_mem.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\qpc\src\qf\qf_ps.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\qpc\src\qf\qf_qact.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\qpc\src\qf\qf_qeq.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\qpc\src\qf\qf_qmact.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\qpc\src\qf\qf_time.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Application\EWARM\startup_stm32f401xe.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Drivers\STM32F4xx_HAL_Driver\stm32f4xx_hal.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Drivers\STM32F4xx_HAL_Driver\stm32f4xx_hal_cortex.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Drivers\STM32F4xx_HAL_Driver\stm32f4xx_hal_dma.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Drivers\STM32F4xx_HAL_Driver\stm32f4xx_hal_dma_ex.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Drivers\STM32F4xx_HAL_Driver\stm32f4xx_hal_exti.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Drivers\STM32F4xx_HAL_Driver\stm32f4xx_hal_flash.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Drivers\STM32F4xx_HAL_Driver\stm32f4xx_hal_flash_ex.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Drivers\STM32F4xx_HAL_Driver\stm32f4xx_hal_flash_ramfunc.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Drivers\STM32F4xx_HAL_Driver\stm32f4xx_hal_gpio.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Application\User\Core\stm32f4xx_hal_msp.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Drivers\STM32F4xx_HAL_Driver\stm32f4xx_hal_pwr.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Drivers\STM32F4xx_HAL_Driver\stm32f4xx_hal_pwr_ex.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Drivers\STM32F4xx_HAL_Driver\stm32f4xx_hal_rcc.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Drivers\STM32F4xx_HAL_Driver\stm32f4xx_hal_rcc_ex.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Drivers\STM32F4xx_HAL_Driver\stm32f4xx_hal_uart.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Application\User\Core\stm32f4xx_it.o"
+#        "D:\Embedded using State Machines\Part 10 UML HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Drivers\CMSIS\system_stm32f4xx.o"
+#        --no_out_extension -o "D:\Embedded using State Machines\Part 10 UML
+#        HSM excercise using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\Exe\007ClockAlarm.out"
+#        --redirect _Printf=_PrintfFullNoMb --redirect _Scanf=_ScanfFullNoMb
+#        --map "D:\Embedded using State Machines\Part 10 UML HSM excercise
+#        using QM
+#        tool\007ClockAlarm\EWARM\007ClockAlarm\List\007ClockAlarm.map"
+#        --config "D:\Embedded using State Machines\Part 10 UML HSM excercise
+#        using QM tool\007ClockAlarm\EWARM/stm32f401xe_flash.icf" --semihosting
+#        --entry __iar_program_start --vfe --text_out locale --cpu=Cortex-M4
+#        --fpu=VFPv4_sp)
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__CPP_Runtime   = 1
+__SystemLibrary = DLib
+__dlib_version  = 6
+
+
+*******************************************************************************
+*** HEAP SELECTION
+***
+
+The basic heap was selected because --advanced_heap
+was not specified and the application did not appear to
+be primarily optimized for speed.
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A0":  place at address 0x800'0000 { ro section .intvec };
+"P1":  place in [from 0x800'0000 to 0x807'ffff] { ro };
+define block CSTACK with size = 1K, alignment = 8 { };
+define block HEAP with size = 512, alignment = 8 { };
+"P2":  place in [from 0x2000'0000 to 0x2001'7fff] {
+          rw, block CSTACK, block HEAP };
+initialize by copy { rw };
+
+  Section            Kind         Address   Size  Object
+  -------            ----         -------   ----  ------
+"A0":                                      0x194
+  .intvec            ro code   0x800'0000  0x194  startup_stm32f401xe.o [1]
+                             - 0x800'0194  0x194
+
+"P1":                                      0xf5c
+  .text              ro code   0x800'0194  0x320  stm32f4xx_hal_rcc.o [4]
+  .text              ro code   0x800'04b4    0xc  stm32f4xx_hal.o [4]
+  .text              ro code   0x800'04c0  0x1e0  stm32f4xx_hal_gpio.o [4]
+  .text              ro code   0x800'06a0  0x18a  main.o [2]
+  .text              ro code   0x800'082a   0x2a  copy_init3.o [9]
+  .text              ro code   0x800'0854   0x34  stm32f4xx_hal.o [4]
+  .text              ro code   0x800'0888  0x148  stm32f4xx_hal_uart.o [4]
+  .text              ro code   0x800'09d0   0x14  memset.o [9]
+  .text              ro code   0x800'09e4  0x14c  stm32f4xx_hal_rcc.o [4]
+  .text              ro code   0x800'0b30   0xac  stm32f4xx_hal_cortex.o [4]
+  .text              ro code   0x800'0bdc   0x40  stm32f4xx_hal.o [4]
+  .text              ro code   0x800'0c1c   0xa8  stm32f4xx_hal_msp.o [2]
+  .text              ro code   0x800'0cc4  0x106  I64DivMod_small.o [9]
+  .text              ro code   0x800'0dcc   0x66  ABImemset.o [9]
+  .text              ro code   0x800'0e34   0x60  stm32f4xx_hal_rcc.o [4]
+  .text              ro code   0x800'0e94    0x2  I64DivZer.o [9]
+  .text              ro code   0x800'0e96   0x38  zero_init3.o [9]
+  .text              ro code   0x800'0ed0   0x28  data_init.o [9]
+  .text              ro code   0x800'0ef8   0x22  fpinit_M.o [8]
+  .iar.init_table    const     0x800'0f1c   0x24  - Linker created -
+  .text              ro code   0x800'0f40   0x20  system_stm32f4xx.o [3]
+  .text              ro code   0x800'0f60   0x1e  cmain.o [9]
+  .text              ro code   0x800'0f7e    0x4  low_level_init.o [7]
+  .text              ro code   0x800'0f82    0x4  exit.o [7]
+  .text              ro code   0x800'0f88    0xa  cexit.o [9]
+  .text              ro code   0x800'0f94   0x14  exit.o [10]
+  .text              ro code   0x800'0fa8   0x1c  cstartup_M.o [9]
+  .text              ro code   0x800'0fc4   0x14  stm32f4xx_it.o [2]
+  .text              ro code   0x800'0fd8   0x10  stm32f4xx_hal.o [4]
+  .text              ro code   0x800'0fe8   0x10  startup_stm32f401xe.o [1]
+  Initializer bytes  const     0x800'0ff8   0x10  <for P2-1>
+  .rodata            const     0x800'1008    0x8  system_stm32f4xx.o [3]
+  .text              ro code   0x800'1010    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1014    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1018    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'101c    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1020    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1024    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1028    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'102c    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1030    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1034    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1038    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'103c    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1040    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1044    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1048    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'104c    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1050    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1054    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1058    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'105c    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1060    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1064    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1068    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'106c    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1070    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1074    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1078    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'107c    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1080    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1084    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1088    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'108c    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1090    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1094    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'1098    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'109c    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'10a0    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'10a4    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'10a8    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'10ac    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'10b0    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'10b4    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'10b8    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'10bc    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'10c0    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'10c4    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'10c8    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'10cc    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'10d0    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'10d4    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'10d8    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'10dc    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'10e0    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'10e4    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'10e8    0x4  startup_stm32f401xe.o [1]
+  .text              ro code   0x800'10ec    0x4  startup_stm32f401xe.o [1]
+  .rodata            const     0x800'10f0    0x0  zero_init3.o [9]
+  .rodata            const     0x800'10f0    0x0  copy_init3.o [9]
+                             - 0x800'10f0  0xf5c
+
+"P2", part 1 of 3:                          0x10
+  P2-1                        0x2000'0000   0x10  <Init block>
+    .data            inited   0x2000'0000    0xc  stm32f4xx_hal.o [4]
+    .data            inited   0x2000'000c    0x4  system_stm32f4xx.o [3]
+                            - 0x2000'0010   0x10
+
+"P2", part 2 of 3:                          0x48
+  .bss               zero     0x2000'0010   0x48  main.o [2]
+                            - 0x2000'0058   0x48
+
+"P2", part 3 of 3:                         0x400
+  CSTACK                      0x2000'0058  0x400  <Block>
+    CSTACK           uninit   0x2000'0058  0x400  <Block tail>
+                            - 0x2000'0458  0x400
+
+Unused ranges:
+
+         From           To      Size
+         ----           --      ----
+   0x800'10f0   0x807'ffff  0x7'ef10
+  0x2000'0458  0x2001'7fff  0x1'7ba8
+
+
+*******************************************************************************
+*** INIT TABLE
+***
+
+          Address      Size
+          -------      ----
+Zero (__iar_zero_init3)
+    1 destination range, total size 0x48:
+          0x2000'0010  0x48
+
+Copy (__iar_copy_init3)
+    1 source range, total size 0x10:
+           0x800'0ff8  0x10
+    1 destination range, total size 0x10:
+          0x2000'0000  0x10
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module                  ro code  ro data  rw data
+    ------                  -------  -------  -------
+command line/config:
+    -------------------------------------------------
+    Total:
+
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Application\EWARM: [1]
+    startup_stm32f401xe.o       644
+    -------------------------------------------------
+    Total:                      644
+
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Application\User\Core: [2]
+    main.o                      394                72
+    stm32f4xx_hal_msp.o         168
+    stm32f4xx_it.o               20
+    -------------------------------------------------
+    Total:                      582                72
+
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Drivers\CMSIS: [3]
+    system_stm32f4xx.o           32       12        4
+    -------------------------------------------------
+    Total:                       32       12        4
+
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Drivers\STM32F4xx_HAL_Driver: [4]
+    stm32f4xx_hal.o             144       12       12
+    stm32f4xx_hal_cortex.o      172
+    stm32f4xx_hal_gpio.o        480
+    stm32f4xx_hal_rcc.o       1'228
+    stm32f4xx_hal_uart.o        328
+    -------------------------------------------------
+    Total:                    2'352       12       12
+
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\qm: [5]
+    -------------------------------------------------
+    Total:
+
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\qpc\src\qf: [6]
+    -------------------------------------------------
+    Total:
+
+dl7M_tln.a: [7]
+    exit.o                        4
+    low_level_init.o              4
+    -------------------------------------------------
+    Total:                        8
+
+m7M_tls.a: [8]
+    fpinit_M.o                   34
+    -------------------------------------------------
+    Total:                       34
+
+rt7M_tl.a: [9]
+    ABImemset.o                 102
+    I64DivMod_small.o           262
+    I64DivZer.o                   2
+    cexit.o                      10
+    cmain.o                      30
+    copy_init3.o                 42
+    cstartup_M.o                 28
+    data_init.o                  40
+    memset.o                     20
+    zero_init3.o                 56
+    -------------------------------------------------
+    Total:                      592
+
+shb_l.a: [10]
+    exit.o                       20
+    -------------------------------------------------
+    Total:                       20
+
+    Gaps                         10        2
+    Linker created                        36    1'024
+-----------------------------------------------------
+    Grand Total:              4'274       62    1'112
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                       Address   Size  Type      Object
+-----                       -------   ----  ----      ------
+.iar.init_table$$Base    0x800'0f1c          --   Gb  - Linker created -
+.iar.init_table$$Limit   0x800'0f40          --   Gb  - Linker created -
+?main                    0x800'0f61         Code  Gb  cmain.o [9]
+ADC_IRQHandler           0x800'1059         Code  Wk  startup_stm32f401xe.o [1]
+AHBPrescTable            0x800'0f50   0x10  Data  Gb  system_stm32f4xx.o [3]
+APBPrescTable            0x800'1008    0x8  Data  Gb  system_stm32f4xx.o [3]
+BusFault_Handler         0x800'0fcb    0x2  Code  Gb  stm32f4xx_it.o [2]
+CSTACK$$Base            0x2000'0058          --   Gb  - Linker created -
+CSTACK$$Limit           0x2000'0458          --   Gb  - Linker created -
+DMA1_Stream0_IRQHandler
+                         0x800'103d         Code  Wk  startup_stm32f401xe.o [1]
+DMA1_Stream1_IRQHandler
+                         0x800'1041         Code  Wk  startup_stm32f401xe.o [1]
+DMA1_Stream2_IRQHandler
+                         0x800'1045         Code  Wk  startup_stm32f401xe.o [1]
+DMA1_Stream3_IRQHandler
+                         0x800'1049         Code  Wk  startup_stm32f401xe.o [1]
+DMA1_Stream4_IRQHandler
+                         0x800'104d         Code  Wk  startup_stm32f401xe.o [1]
+DMA1_Stream5_IRQHandler
+                         0x800'1051         Code  Wk  startup_stm32f401xe.o [1]
+DMA1_Stream6_IRQHandler
+                         0x800'1055         Code  Wk  startup_stm32f401xe.o [1]
+DMA1_Stream7_IRQHandler
+                         0x800'10a9         Code  Wk  startup_stm32f401xe.o [1]
+DMA2_Stream0_IRQHandler
+                         0x800'10b9         Code  Wk  startup_stm32f401xe.o [1]
+DMA2_Stream1_IRQHandler
+                         0x800'10bd         Code  Wk  startup_stm32f401xe.o [1]
+DMA2_Stream2_IRQHandler
+                         0x800'10c1         Code  Wk  startup_stm32f401xe.o [1]
+DMA2_Stream3_IRQHandler
+                         0x800'10c5         Code  Wk  startup_stm32f401xe.o [1]
+DMA2_Stream4_IRQHandler
+                         0x800'10c9         Code  Wk  startup_stm32f401xe.o [1]
+DMA2_Stream5_IRQHandler
+                         0x800'10d1         Code  Wk  startup_stm32f401xe.o [1]
+DMA2_Stream6_IRQHandler
+                         0x800'10d5         Code  Wk  startup_stm32f401xe.o [1]
+DMA2_Stream7_IRQHandler
+                         0x800'10d9         Code  Wk  startup_stm32f401xe.o [1]
+DebugMon_Handler         0x800'0fd1    0x2  Code  Gb  stm32f4xx_it.o [2]
+EXTI0_IRQHandler         0x800'1029         Code  Wk  startup_stm32f401xe.o [1]
+EXTI15_10_IRQHandler     0x800'109d         Code  Wk  startup_stm32f401xe.o [1]
+EXTI1_IRQHandler         0x800'102d         Code  Wk  startup_stm32f401xe.o [1]
+EXTI2_IRQHandler         0x800'1031         Code  Wk  startup_stm32f401xe.o [1]
+EXTI3_IRQHandler         0x800'1035         Code  Wk  startup_stm32f401xe.o [1]
+EXTI4_IRQHandler         0x800'1039         Code  Wk  startup_stm32f401xe.o [1]
+EXTI9_5_IRQHandler       0x800'105d         Code  Wk  startup_stm32f401xe.o [1]
+Error_Handler            0x800'0827    0x4  Code  Gb  main.o [2]
+FLASH_IRQHandler         0x800'1021         Code  Wk  startup_stm32f401xe.o [1]
+FPU_IRQHandler           0x800'10e9         Code  Wk  startup_stm32f401xe.o [1]
+HAL_GPIO_Init            0x800'04c1  0x1b8  Code  Gb  stm32f4xx_hal_gpio.o [4]
+HAL_GPIO_WritePin        0x800'0679    0x8  Code  Gb  stm32f4xx_hal_gpio.o [4]
+HAL_GetTick              0x800'04b5    0xc  Code  Wk  stm32f4xx_hal.o [4]
+HAL_IncTick              0x800'0fd9   0x10  Code  Wk  stm32f4xx_hal.o [4]
+HAL_Init                 0x800'0855   0x30  Code  Gb  stm32f4xx_hal.o [4]
+HAL_InitTick             0x800'0bdd   0x40  Code  Wk  stm32f4xx_hal.o [4]
+HAL_MspInit              0x800'0c1d   0x34  Code  Gb  stm32f4xx_hal_msp.o [2]
+HAL_NVIC_SetPriority     0x800'0b65   0x3a  Code  Gb  stm32f4xx_hal_cortex.o [4]
+HAL_NVIC_SetPriorityGrouping
+                         0x800'0b4b   0x1a  Code  Gb  stm32f4xx_hal_cortex.o [4]
+HAL_RCC_ClockConfig      0x800'09e5  0x100  Code  Gb  stm32f4xx_hal_rcc.o [4]
+HAL_RCC_GetPCLK1Freq     0x800'0af1   0x10  Code  Gb  stm32f4xx_hal_rcc.o [4]
+HAL_RCC_GetPCLK2Freq     0x800'0b01    0xe  Code  Gb  stm32f4xx_hal_rcc.o [4]
+HAL_RCC_GetSysClockFreq
+                         0x800'0e35   0x60  Code  Wk  stm32f4xx_hal_rcc.o [4]
+HAL_RCC_OscConfig        0x800'0195  0x320  Code  Wk  stm32f4xx_hal_rcc.o [4]
+HAL_SYSTICK_Config       0x800'0ba1   0x22  Code  Gb  stm32f4xx_hal_cortex.o [4]
+HAL_UART_Init            0x800'0889   0x1e  Code  Gb  stm32f4xx_hal_uart.o [4]
+HAL_UART_MspInit         0x800'0c51   0x62  Code  Gb  stm32f4xx_hal_msp.o [2]
+HardFault_Handler        0x800'0fc7    0x2  Code  Gb  stm32f4xx_it.o [2]
+I2C1_ER_IRQHandler       0x800'1081         Code  Wk  startup_stm32f401xe.o [1]
+I2C1_EV_IRQHandler       0x800'107d         Code  Wk  startup_stm32f401xe.o [1]
+I2C2_ER_IRQHandler       0x800'1089         Code  Wk  startup_stm32f401xe.o [1]
+I2C2_EV_IRQHandler       0x800'1085         Code  Wk  startup_stm32f401xe.o [1]
+I2C3_ER_IRQHandler       0x800'10e5         Code  Wk  startup_stm32f401xe.o [1]
+I2C3_EV_IRQHandler       0x800'10e1         Code  Wk  startup_stm32f401xe.o [1]
+MemManage_Handler        0x800'0fc9    0x2  Code  Gb  stm32f4xx_it.o [2]
+NMI_Handler              0x800'0fc5    0x2  Code  Gb  stm32f4xx_it.o [2]
+OTG_FS_IRQHandler        0x800'10cd         Code  Wk  startup_stm32f401xe.o [1]
+OTG_FS_WKUP_IRQHandler   0x800'10a5         Code  Wk  startup_stm32f401xe.o [1]
+PVD_IRQHandler           0x800'1015         Code  Wk  startup_stm32f401xe.o [1]
+PendSV_Handler           0x800'0fd3    0x2  Code  Gb  stm32f4xx_it.o [2]
+RCC_IRQHandler           0x800'1025         Code  Wk  startup_stm32f401xe.o [1]
+RTC_Alarm_IRQHandler     0x800'10a1         Code  Wk  startup_stm32f401xe.o [1]
+RTC_WKUP_IRQHandler      0x800'101d         Code  Wk  startup_stm32f401xe.o [1]
+Region$$Table$$Base      0x800'0f1c          --   Gb  - Linker created -
+Region$$Table$$Limit     0x800'0f40          --   Gb  - Linker created -
+Reset_Handler            0x800'0fe9         Code  Wk  startup_stm32f401xe.o [1]
+SDIO_IRQHandler          0x800'10ad         Code  Wk  startup_stm32f401xe.o [1]
+SPI1_IRQHandler          0x800'108d         Code  Wk  startup_stm32f401xe.o [1]
+SPI2_IRQHandler          0x800'1091         Code  Wk  startup_stm32f401xe.o [1]
+SPI3_IRQHandler          0x800'10b5         Code  Wk  startup_stm32f401xe.o [1]
+SPI4_IRQHandler          0x800'10ed         Code  Wk  startup_stm32f401xe.o [1]
+SVC_Handler              0x800'0fcf    0x2  Code  Gb  stm32f4xx_it.o [2]
+SysTick_Handler          0x800'0fd5    0x4  Code  Gb  stm32f4xx_it.o [2]
+SystemClock_Config       0x800'0767   0x9a  Code  Gb  main.o [2]
+SystemCoreClock         0x2000'000c    0x4  Data  Gb  system_stm32f4xx.o [3]
+SystemInit               0x800'0f41    0xc  Code  Gb  system_stm32f4xx.o [3]
+TAMP_STAMP_IRQHandler    0x800'1019         Code  Wk  startup_stm32f401xe.o [1]
+TIM1_BRK_TIM9_IRQHandler
+                         0x800'1061         Code  Wk  startup_stm32f401xe.o [1]
+TIM1_CC_IRQHandler       0x800'106d         Code  Wk  startup_stm32f401xe.o [1]
+TIM1_TRG_COM_TIM11_IRQHandler
+                         0x800'1069         Code  Wk  startup_stm32f401xe.o [1]
+TIM1_UP_TIM10_IRQHandler
+                         0x800'1065         Code  Wk  startup_stm32f401xe.o [1]
+TIM2_IRQHandler          0x800'1071         Code  Wk  startup_stm32f401xe.o [1]
+TIM3_IRQHandler          0x800'1075         Code  Wk  startup_stm32f401xe.o [1]
+TIM4_IRQHandler          0x800'1079         Code  Wk  startup_stm32f401xe.o [1]
+TIM5_IRQHandler          0x800'10b1         Code  Wk  startup_stm32f401xe.o [1]
+UART_SetConfig           0x800'0907   0xb0  Code  Lc  stm32f4xx_hal_uart.o [4]
+USART1_IRQHandler        0x800'1095         Code  Wk  startup_stm32f401xe.o [1]
+USART2_IRQHandler        0x800'1099         Code  Wk  startup_stm32f401xe.o [1]
+USART6_IRQHandler        0x800'10dd         Code  Wk  startup_stm32f401xe.o [1]
+UsageFault_Handler       0x800'0fcd    0x2  Code  Gb  stm32f4xx_it.o [2]
+WWDG_IRQHandler          0x800'1011         Code  Wk  startup_stm32f401xe.o [1]
+__NVIC_SetPriority       0x800'0b31   0x1a  Code  Lc  stm32f4xx_hal_cortex.o [4]
+__aeabi_ldiv0            0x800'0e95         Code  Gb  I64DivZer.o [9]
+__aeabi_memset           0x800'0dcd         Code  Gb  ABImemset.o [9]
+__cmain                  0x800'0f61         Code  Gb  cmain.o [9]
+__exit                   0x800'0f95   0x14  Code  Gb  exit.o [10]
+__iar_Memset             0x800'0dcd         Code  Gb  ABImemset.o [9]
+__iar_Memset_word        0x800'0dd5         Code  Gb  ABImemset.o [9]
+__iar_copy_init3         0x800'082b   0x2a  Code  Gb  copy_init3.o [9]
+__iar_data_init3         0x800'0ed1   0x28  Code  Gb  data_init.o [9]
+__iar_init_vfp           0x800'0ef9         Code  Gb  fpinit_M.o [8]
+__iar_program_start      0x800'0fa9         Code  Gb  cstartup_M.o [9]
+__iar_small_uldivmod     0x800'0cc5         Code  Gb  I64DivMod_small.o [9]
+__iar_zero_init3         0x800'0e97   0x38  Code  Gb  zero_init3.o [9]
+__low_level_init         0x800'0f7f    0x4  Code  Gb  low_level_init.o [7]
+__vector_table           0x800'0000         Data  Gb  startup_stm32f401xe.o [1]
+_call_main               0x800'0f6d         Code  Gb  cmain.o [9]
+_exit                    0x800'0f89         Code  Gb  cexit.o [9]
+exit                     0x800'0f83    0x4  Code  Gb  exit.o [7]
+huart2                  0x2000'0010   0x48  Data  Gb  main.o [2]
+main                     0x800'06a1   0xc6  Code  Gb  main.o [2]
+memset                   0x800'09d1   0x14  Code  Gb  memset.o [9]
+uwTick                  0x2000'0004    0x4  Data  Gb  stm32f4xx_hal.o [4]
+uwTickFreq              0x2000'0000    0x1  Data  Gb  stm32f4xx_hal.o [4]
+uwTickPrio              0x2000'0008    0x4  Data  Gb  stm32f4xx_hal.o [4]
+
+
+[1] = D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Application\EWARM
+[2] = D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Application\User\Core
+[3] = D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Drivers\CMSIS
+[4] = D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\Drivers\STM32F4xx_HAL_Driver
+[5] = D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\qm
+[6] = D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\007ClockAlarm\Obj\qpc\src\qf
+[7] = dl7M_tln.a
+[8] = m7M_tls.a
+[9] = rt7M_tl.a
+[10] = shb_l.a
+
+  4'274 bytes of readonly  code memory
+     62 bytes of readonly  data memory
+  1'112 bytes of readwrite data memory
+
+Errors: none
+Warnings: none
