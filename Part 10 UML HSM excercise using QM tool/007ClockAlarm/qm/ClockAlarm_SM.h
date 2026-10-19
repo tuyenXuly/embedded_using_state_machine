@@ -47,6 +47,34 @@ enum ClockAlarm_Signals{
     MAX_SIG
 };
 
+enum time_mode{
+    MODE_24H,
+    MODE_12H
+};
+
+enum time_status{
+    ALARM_OFF,
+    ALARM_ON
+};
+
+typedef enum time_format{
+    FORMAT_24H,
+    FORMAT_AM,
+    FORMAT_PM
+}time_format_t
+
+#define GET_HOUR(seconds)     (seconds/3600UL)
+#define GET_MIN(seconds)      ((seconds/60UL)%60UL)
+#define GET_SEC(seconds)      (seconds % 60UL)
+#define DIGIT1(d)             (d/10U)
+#define DIGIT2(d)             (d%10U)
+
+#define MAX_TIME  (24UL * 3600UL * 10UL)
+#define INITIAL_CURR_TIME  ((10UL * 3600UL + 10UL * 60UL + 10UL) * 10UL)
+#define INITIAL_ALARM_TIME  (8UL * 3600UL)
+
+#define TICKING_CURR_TIME_ROW  0
+#define TICKING_CURR_TIME_COL  3
 //$declare${HSMs::Clock_Alarm_ctor} vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 //${HSMs::Clock_Alarm_ctor} ..................................................

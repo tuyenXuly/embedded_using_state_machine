@@ -35,6 +35,9 @@
 // <info@state-machine.com>
 //
 //$endhead${HSMs::.::ClockAlarm_SM.c} ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#include "main.h"
+#include <string.h>
+#include <stdio.h>
 #include "qpc.h"             // QP/C framework
 #include "ClockAlarm_SM.h"      // this application
 
@@ -46,17 +49,26 @@ typedef struct Clock_Alarm {
     QHsm super;
 
 // private:
-    uint32_t curr_time;
     uint32_t temp_time;
     uint32_t alarm_time;
     uint8_t time_mode;
-    uint8_t time_status;
+    uint8_t alarm_status;
 
 // private state histories
     QStateHandler hist_Clock;
 } Clock_Alarm;
 
+extern uint32_t Clock_Alarm_curr_time;
+
 extern Clock_Alarm Clock_Alarm_obj;
+
+// public:
+static uint32_t Clock_Alarm_get_curr_time(void);
+static void Clock_Alarm_update_curr_time(void);
+static void Clock_Alarm_set_curr_time(uint32_t new_curr_time);
+static void Clock_Alarm_display_curr_time(Clock_Alarm * const me,
+    uint8_t row,
+    uint8_t col);
 
 // protected:
 static QState Clock_Alarm_initial(Clock_Alarm * const me, void const * const par);
@@ -83,11 +95,58 @@ void Clock_Alarm_ctor(void) {
 //$define${HSMs::Clock_Alarm} vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 //${HSMs::Clock_Alarm} .......................................................
+uint32_t Clock_Alarm_curr_time;
 Clock_Alarm Clock_Alarm_obj;
+
+//${HSMs::Clock_Alarm::update_curr_time} .....................................
+static void Clock_Alarm_update_curr_time(void) {
+    if(++Clock_Alarm_curr_time == MAX_TIME){
+        Clock_Alarm_curr_time = 0;
+    }
+}
+
+//${HSMs::Clock_Alarm::set_curr_time} ........................................
+static void Clock_Alarm_set_curr_time(uint32_t new_curr_time) {
+    uint32_t primask = __get_PRIMASK();
+    __disable_irq();
+
+    Clock_Alarm_curr_time = new_curr_time;
+
+    __set_PRIMASK(primask);
+}
+
+//${HSMs::Clock_Alarm::display_curr_time} ....................................
+static void Clock_Alarm_display_curr_time(Clock_Alarm * const me,
+    uint8_t row,
+    uint8_t col)
+{
+        String time_as_string;
+        uint32_t time_;
+
+        uint32_t time24h = Clock_Alarm_get_curr_time()/10; //convert to number of seconds
+        uint8_t ss = time24h % 10U;       //extract sub-second to append later
+
+        time_ = (me->time_mode == MODE_24H)?time24h:convert_24hformat_to_12h(time24h);
+        time_as_string = integertime_to_string(time_); //hh:mm:ss
+        time_as_string.concat('.');
+        time_as_string.concat(ss);
+
+        /*if mode is 12H , concatenate  am/pm information */
+        if(me->time_mode == MODE_12H){
+            time_as_string.concat(' ');
+            time_as_string.concat(get_am_or_pm(time24h));
+        }
+
+        display_write(time_as_string,row,col);
+}
 
 //${HSMs::Clock_Alarm::SM} ...................................................
 static QState Clock_Alarm_initial(Clock_Alarm * const me, void const * const par) {
     //${HSMs::Clock_Alarm::SM::initial}
+    Clock_Alarm_set_curr_time(INITIAL_CURR_TIME);
+    me->alarm_time = INITIAL_CURR_TIME;
+    me->time_mode = MODE_12H;
+    me->alarm_status = ALARM_OFF;
     // state history attributes
     me->hist_Clock = Q_STATE_CAST(&Clock_Alarm_Ticking);
     return Q_TRAN(&Clock_Alarm_Ticking);
@@ -121,6 +180,12 @@ static QState Clock_Alarm_Clock(Clock_Alarm * const me, QEvt const * const e) {
 static QState Clock_Alarm_Ticking(Clock_Alarm * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
+        //${HSMs::Clock_Alarm::SM::Clock::Ticking}
+        case Q_ENTRY_SIG: {
+            Clock_Alarm_display_curr_time(me, TICKING_CURR_TIME_ROW, TICKING_CURR_TIME_COL);
+            status_ = Q_HANDLED();
+            break;
+        }
         //${HSMs::Clock_Alarm::SM::Clock::Ticking::SET}
         case SET_SIG: {
             status_ = Q_TRAN(&Clock_Alarm_Clock_Setting);
@@ -202,3 +267,103 @@ static QState Clock_Alarm_Alarm_Notify(Clock_Alarm * const me, QEvt const * cons
     return status_;
 }
 //$enddef${HSMs::Clock_Alarm} ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+    if (htim->Instance == TIM1) {
+        Clock_Alarm_update_curr_time();
+    }
+}
+
+/*
+ * Description : Decodes AM/PM information from given time in 24H format.
+ * param1      : Integer time in 24H format (seconds).
+ * return      : String "AM" or "PM".
+ */
+const char *get_am_or_pm(uint32_t time24h)
+{
+    uint8_t h = (uint8_t)GET_HOUR(time24h);
+
+    if (h >= 12U)
+    {
+        return "PM";
+    }
+
+    return "AM";
+}
+
+/*
+ * Description: Writes a message to the LCD at given row and column.
+ * param1     : Message to write in C-string format.
+ * param2     : Row number of the LCD.
+ * param3     : Column number of the LCD.
+ */
+void display_write(const char *str_, uint8_t r, uint8_t c)
+{
+    lcd_set_cursor(c, r);
+    lcd_print_string(str_);
+}
+
+/*
+ * Description: Converts integer time to a C string.
+ * param1     : Time represented as number of seconds.
+ * param2     : Output buffer.
+ * param3     : Size of output buffer.
+ * format     : HH:MM:SS
+ */
+void integertime_to_string(uint32_t time_,
+                              char *out_str,
+                              size_t out_size)
+{
+    uint8_t h;
+    uint8_t m;
+    uint8_t s;
+
+    h = (uint8_t)GET_HOUR(time_);
+    m = (uint8_t)GET_MIN(time_);
+    s = (uint8_t)GET_SEC(time_);
+
+    (void)snprintf(out_str, out_size, "%02u:%02u:%02u",
+                   (unsigned int)h,
+                   (unsigned int)m,
+                   (unsigned int)s);
+}
+
+/*
+ * Description: Converts given integer time in 12H format to integer time 24H format
+ * param1 : Integer time in 12H format
+ * param2 : time format of type time_format_t
+ * return : Integer time in 24H format
+ */
+uint32_t convert_12hformat_to_24h(uint32_t time12h, time_format_t ampm){
+    uint8_t hour;
+    uint32_t time24h;
+    hour = GET_HOUR(time12h);
+    if(ampm == FORMAT_AM){
+        time24h = (hour == 12)? (time12h-(12UL * 3600UL)) : time12h;
+    }else{
+        time24h = (hour == 12)? time12h : (time12h +(12UL * 3600UL));
+    }
+    return time24h;
+}
+
+/*
+ * Description: Converts given integer time in 24H format to integer time 12H format
+ * param1 : Integer time in 24H format
+ * return : Integer time in 12H format
+ */
+uint32_t convert_24hformat_to_12h(uint32_t time24h){
+    uint8_t hour;
+    uint32_t time12h;
+    hour = GET_HOUR(time24h);
+
+    if(hour == 0)
+        time12h = time24h + (12UL * 3600UL);
+    else{
+        if((hour < 12UL) || (hour == 12UL))
+            return time24h;
+        else
+            time12h = time24h - (12UL * 3600UL);
+    }
+    return time12h;
+}

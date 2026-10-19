@@ -1,20 +1,20 @@
 D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\007ClockAlarm\BrowseInfo\qpc\src\qf\qep_hsm.pbi: \
-  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\include\qs_dummy.h \
-  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\include\qsafe.h \
-  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\include\qv.h \
-  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\include\qp.h \
-  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\include\qmpool.h \
-  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\include\qequeue.h \
-  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\ports\arm-cm\config\qp_config.h \
-  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\aarch32\iar_intrinsics_common.h \
-  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\aarch32\iccarm_builtin.h \
-  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\aarch32\intrinsics.h \
-  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\stdbool.h \
-  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\DLib_Product.h \
-  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\DLib_Config_Full.h \
-  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\DLib_Defaults.h \
-  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\yvals.h \
-  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\ycheck.h \
-  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\stdint.h \
+  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\Third_party\qp\qpc\src\qf\qep_hsm.c \
   D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\ports\arm-cm\qv\iar\qp_port.h \
-  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\Third_party\qp\qpc\src\qf\qep_hsm.c
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\stdint.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\ycheck.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\yvals.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\DLib_Defaults.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\DLib_Config_Full.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\DLib_Product.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\stdbool.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\aarch32\intrinsics.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\aarch32\iccarm_builtin.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\aarch32\iar_intrinsics_common.h \
+  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\ports\arm-cm\config\qp_config.h \
+  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\include\qequeue.h \
+  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\include\qmpool.h \
+  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\include\qp.h \
+  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\include\qv.h \
+  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\include\qsafe.h \
+  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\include\qs_dummy.h
