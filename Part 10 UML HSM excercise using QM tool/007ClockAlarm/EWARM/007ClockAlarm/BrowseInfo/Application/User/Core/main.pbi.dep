@@ -33,8 +33,24 @@ D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ to
   D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash.h \
   D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ex.h \
   D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ramfunc.h \
+  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c.h \
+  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_i2c_ex.h \
   D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr.h \
   D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h \
   D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
   D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
-  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h
+  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
+  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\include\qpc.h \
+  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\ports\arm-cm\qv\iar\qp_port.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\stdbool.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\aarch32\intrinsics.h \
+  C:\Program\ Files\IAR\ Systems\Embedded\ Workbench\ 9.1\arm\inc\c\aarch32\iar_intrinsics_common.h \
+  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\ports\arm-cm\config\qp_config.h \
+  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\include\qequeue.h \
+  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\include\qmpool.h \
+  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\include\qp.h \
+  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\include\qv.h \
+  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\include\qsafe.h \
+  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\include\qs_dummy.h \
+  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\qm\ClockAlarm_SM.h \
+  D:\Embedded\ using\ State\ Machines\Part\ 10\ UML\ HSM\ excercise\ using\ QM\ tool\007ClockAlarm\EWARM\..\lib\LCD_I2C_lib.h

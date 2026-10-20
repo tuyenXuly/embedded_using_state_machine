@@ -1500,9 +1500,24 @@
                 <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c</name>
             </file>
         </group>
+    </group>
+    <group>
+        <name>lib</name>
+        <file>
+            <name>$PROJ_DIR$\..\lib\LCD_I2C_lib.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\lib\LCD_I2C_lib.h</name>
+        </file>
     </group>
     <group>
         <name>qm</name>

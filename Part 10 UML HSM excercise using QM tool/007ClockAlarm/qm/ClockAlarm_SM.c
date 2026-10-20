@@ -40,7 +40,7 @@
 #include <stdio.h>
 #include "qpc.h"             // QP/C framework
 #include "ClockAlarm_SM.h"      // this application
-
+#include "LCD_I2C_lib.h"
 //$declare${HSMs::Clock_Alarm} vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 //${HSMs::Clock_Alarm} .......................................................
@@ -73,12 +73,113 @@ static void Clock_Alarm_display_curr_time(Clock_Alarm * const me,
 // protected:
 static QState Clock_Alarm_initial(Clock_Alarm * const me, void const * const par);
 static QState Clock_Alarm_Clock(Clock_Alarm * const me, QEvt const * const e);
-static QState Clock_Alarm_Ticking(Clock_Alarm * const me, QEvt const * const e);
 static QState Clock_Alarm_Settings(Clock_Alarm * const me, QEvt const * const e);
 static QState Clock_Alarm_Clock_Setting(Clock_Alarm * const me, QEvt const * const e);
+static QState Clock_Alarm_cs_hour_d2(Clock_Alarm * const me, QEvt const * const e);
+static QState Clock_Alarm_cs_min_d1(Clock_Alarm * const me, QEvt const * const e);
+static QState Clock_Alarm_cs_hour_d1(Clock_Alarm * const me, QEvt const * const e);
+static QState Clock_Alarm_cs_min_d2(Clock_Alarm * const me, QEvt const * const e);
+static QState Clock_Alarm_cs_sec_d1(Clock_Alarm * const me, QEvt const * const e);
+static QState Clock_Alarm_cs_sec_d2(Clock_Alarm * const me, QEvt const * const e);
+static QState Clock_Alarm_cs_format(Clock_Alarm * const me, QEvt const * const e);
+static QState Clock_Alarm_cs_error(Clock_Alarm * const me, QEvt const * const e);
 static QState Clock_Alarm_Alarm_Setting(Clock_Alarm * const me, QEvt const * const e);
+static QState Clock_Alarm_Ticking(Clock_Alarm * const me, QEvt const * const e);
 static QState Clock_Alarm_Alarm_Notify(Clock_Alarm * const me, QEvt const * const e);
 //$enddecl${HSMs::Clock_Alarm} ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+extern CLCD_I2C_Name LCD1;
+void lcd_set_cursor(uint8_t col, uint8_t row) {
+    CLCD_I2C_SetCursor(&LCD1, col, row);
+}
+
+void lcd_print_string(char *str) {
+    CLCD_I2C_WriteString(&LCD1, str);
+}
+
+/*
+ * Description : Decodes AM/PM information from given time in 24H format
+ * param1      : Integer time in 24H format (in seconds)
+ * return      : Constant string pointer ("AM" or "PM")
+ */
+const char* get_am_or_pm(uint32_t time24h) {
+    const char* ampm;
+    uint8_t h = GET_HOUR(time24h);
+    if (h == 0U) {
+        ampm = "AM";
+    } else if (h > 12U) {
+        ampm = "PM";
+    } else if (h == 12U) {
+        ampm = "PM";
+    } else {
+        ampm = "AM";
+    }
+    return ampm;
+}
+
+/*
+ * Description : Writes a message to the LCD at given row and column number
+ * param1      : Message to write in 'const char*' format
+ * param2      : row number of the LCD
+ * param3      : column number of the LCD
+ */
+void display_write(const char *str_, uint8_t r, uint8_t c) {
+    lcd_set_cursor(c, r);
+    lcd_print_string((char *)str_);
+}
+
+/*
+ * Description : Converts an 'integer' time to C-string time in format HH:MM:SS
+ * param1      : time represented in terms of number of seconds
+ * param2      : output char buffer (minimum size: 9 bytes)
+ * param3      : size of output buffer
+ */
+void integertime_to_string(uint32_t time_, char *out_buf, size_t buf_size) {
+    uint8_t h, m, s;
+    h = GET_HOUR(time_); /* Extract how many hours the 'time_' represent */
+    m = GET_MIN(time_);  /* Extract how many minutes the 'time_' represent */
+    s = GET_SEC(time_);  /* Extract how many seconds the 'time_' represent */
+    snprintf(out_buf, buf_size, "%02u:%02u:%02u", h, m, s);
+}
+
+/*
+ * Description : Converts given integer time in 12H format to integer time 24H format
+ * param1      : Integer time in 12H format
+ * param2      : time format of type time_format_t
+ * return      : Integer time in 24H format
+ */
+uint32_t convert_12hformat_to_24h(uint32_t time12h, time_format_t ampm) {
+    uint8_t hour;
+    uint32_t time24h;
+    hour = GET_HOUR(time12h);
+    if (ampm == FORMAT_AM) {
+        time24h = (hour == 12U) ? (time12h - (12UL * 3600UL)) : time12h;
+    } else {
+        time24h = (hour == 12U) ? time12h : (time12h + (12UL * 3600UL));
+    }
+    return time24h;
+}
+
+/*
+ * Description : Converts given integer time in 24H format to integer time 12H format
+ * param1      : Integer time in 24H format
+ * return      : Integer time in 12H format
+ */
+uint32_t convert_24hformat_to_12h(uint32_t time24h) {
+    uint8_t hour;
+    uint32_t time12h;
+    hour = GET_HOUR(time24h);
+
+    if (hour == 0U) {
+        time12h = time24h + (12UL * 3600UL);
+    } else {
+        if ((hour < 12U) || (hour == 12U)) {
+            return time24h;
+        } else {
+            time12h = time24h - (12UL * 3600UL);
+        }
+    }
+    return time12h;
+}
 //$skip${QP_VERSION} vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 // Check for the minimum required QP version
 #if (QP_VERSION < 730U) || (QP_VERSION != ((QP_RELEASE^4294967295U)%0x2710U))
@@ -97,6 +198,11 @@ void Clock_Alarm_ctor(void) {
 //${HSMs::Clock_Alarm} .......................................................
 uint32_t Clock_Alarm_curr_time;
 Clock_Alarm Clock_Alarm_obj;
+
+//${HSMs::Clock_Alarm::get_curr_time} ........................................
+static uint32_t Clock_Alarm_get_curr_time(void) {
+    uint8_t i = 10;
+}
 
 //${HSMs::Clock_Alarm::update_curr_time} .....................................
 static void Clock_Alarm_update_curr_time(void) {
@@ -120,24 +226,29 @@ static void Clock_Alarm_display_curr_time(Clock_Alarm * const me,
     uint8_t row,
     uint8_t col)
 {
-        String time_as_string;
-        uint32_t time_;
+    char time_as_string[16];
+    char hms_buf[10];
+    uint32_t time_;
 
-        uint32_t time24h = Clock_Alarm_get_curr_time()/10; //convert to number of seconds
-        uint8_t ss = time24h % 10U;       //extract sub-second to append later
+    uint32_t raw_time = Clock_Alarm_get_curr_time();
+    uint8_t ss = (uint8_t)(raw_time % 10UL);
+    uint32_t time24h = raw_time / 10UL;
 
-        time_ = (me->time_mode == MODE_24H)?time24h:convert_24hformat_to_12h(time24h);
-        time_as_string = integertime_to_string(time_); //hh:mm:ss
-        time_as_string.concat('.');
-        time_as_string.concat(ss);
+    time_ = (me->time_mode == MODE_24H) ? time24h : convert_24hformat_to_12h(time24h);
 
-        /*if mode is 12H , concatenate  am/pm information */
-        if(me->time_mode == MODE_12H){
-            time_as_string.concat(' ');
-            time_as_string.concat(get_am_or_pm(time24h));
-        }
 
-        display_write(time_as_string,row,col);
+    integertime_to_string(time_, hms_buf, sizeof(hms_buf));
+
+
+    if (me->time_mode == MODE_12H) {
+        snprintf(time_as_string, sizeof(time_as_string), "%s.%u %s",
+                 hms_buf, ss, get_am_or_pm(time24h));
+    } else {
+        snprintf(time_as_string, sizeof(time_as_string), "%s.%u",
+                 hms_buf, ss);
+    }
+
+    display_write(time_as_string, row, col);
 }
 
 //${HSMs::Clock_Alarm::SM} ...................................................
@@ -176,34 +287,6 @@ static QState Clock_Alarm_Clock(Clock_Alarm * const me, QEvt const * const e) {
     return status_;
 }
 
-//${HSMs::Clock_Alarm::SM::Clock::Ticking} ...................................
-static QState Clock_Alarm_Ticking(Clock_Alarm * const me, QEvt const * const e) {
-    QState status_;
-    switch (e->sig) {
-        //${HSMs::Clock_Alarm::SM::Clock::Ticking}
-        case Q_ENTRY_SIG: {
-            Clock_Alarm_display_curr_time(me, TICKING_CURR_TIME_ROW, TICKING_CURR_TIME_COL);
-            status_ = Q_HANDLED();
-            break;
-        }
-        //${HSMs::Clock_Alarm::SM::Clock::Ticking::SET}
-        case SET_SIG: {
-            status_ = Q_TRAN(&Clock_Alarm_Clock_Setting);
-            break;
-        }
-        //${HSMs::Clock_Alarm::SM::Clock::Ticking::OK}
-        case OK_SIG: {
-            status_ = Q_TRAN(&Clock_Alarm_Alarm_Setting);
-            break;
-        }
-        default: {
-            status_ = Q_SUPER(&Clock_Alarm_Clock);
-            break;
-        }
-    }
-    return status_;
-}
-
 //${HSMs::Clock_Alarm::SM::Clock::Settings} ..................................
 static QState Clock_Alarm_Settings(Clock_Alarm * const me, QEvt const * const e) {
     QState status_;
@@ -230,8 +313,179 @@ static QState Clock_Alarm_Settings(Clock_Alarm * const me, QEvt const * const e)
 static QState Clock_Alarm_Clock_Setting(Clock_Alarm * const me, QEvt const * const e) {
     QState status_;
     switch (e->sig) {
+        //${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::initial}
+        case Q_INIT_SIG: {
+            status_ = Q_TRAN(&Clock_Alarm_cs_hour_d1);
+            break;
+        }
         default: {
             status_ = Q_SUPER(&Clock_Alarm_Settings);
+            break;
+        }
+    }
+    return status_;
+}
+
+//${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::cs_hour_d2} .......
+static QState Clock_Alarm_cs_hour_d2(Clock_Alarm * const me, QEvt const * const e) {
+    QState status_;
+    switch (e->sig) {
+        //${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::cs_hour_d2::SET}
+        case SET_SIG: {
+            status_ = Q_HANDLED();
+            break;
+        }
+        //${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::cs_hour_d2::OK}
+        case OK_SIG: {
+            status_ = Q_TRAN(&Clock_Alarm_cs_min_d1);
+            break;
+        }
+        default: {
+            status_ = Q_SUPER(&Clock_Alarm_Clock_Setting);
+            break;
+        }
+    }
+    return status_;
+}
+
+//${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::cs_min_d1} ........
+static QState Clock_Alarm_cs_min_d1(Clock_Alarm * const me, QEvt const * const e) {
+    QState status_;
+    switch (e->sig) {
+        //${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::cs_min_d1::SET}
+        case SET_SIG: {
+            status_ = Q_HANDLED();
+            break;
+        }
+        //${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::cs_min_d1::OK}
+        case OK_SIG: {
+            status_ = Q_TRAN(&Clock_Alarm_cs_min_d2);
+            break;
+        }
+        default: {
+            status_ = Q_SUPER(&Clock_Alarm_Clock_Setting);
+            break;
+        }
+    }
+    return status_;
+}
+
+//${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::cs_hour_d1} .......
+static QState Clock_Alarm_cs_hour_d1(Clock_Alarm * const me, QEvt const * const e) {
+    QState status_;
+    switch (e->sig) {
+        //${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::cs_hour_d1::SET }
+        case SET _SIG: {
+            status_ = Q_HANDLED();
+            break;
+        }
+        //${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::cs_hour_d1::OK}
+        case OK_SIG: {
+            status_ = Q_TRAN(&Clock_Alarm_cs_hour_d2);
+            break;
+        }
+        default: {
+            status_ = Q_SUPER(&Clock_Alarm_Clock_Setting);
+            break;
+        }
+    }
+    return status_;
+}
+
+//${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::cs_min_d2} ........
+static QState Clock_Alarm_cs_min_d2(Clock_Alarm * const me, QEvt const * const e) {
+    QState status_;
+    switch (e->sig) {
+        //${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::cs_min_d2::SET}
+        case SET_SIG: {
+            status_ = Q_HANDLED();
+            break;
+        }
+        //${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::cs_min_d2::OK}
+        case OK_SIG: {
+            status_ = Q_TRAN(&Clock_Alarm_cs_sec_d1);
+            break;
+        }
+        default: {
+            status_ = Q_SUPER(&Clock_Alarm_Clock_Setting);
+            break;
+        }
+    }
+    return status_;
+}
+
+//${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::cs_sec_d1} ........
+static QState Clock_Alarm_cs_sec_d1(Clock_Alarm * const me, QEvt const * const e) {
+    QState status_;
+    switch (e->sig) {
+        //${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::cs_sec_d1::SET}
+        case SET_SIG: {
+            status_ = Q_HANDLED();
+            break;
+        }
+        //${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::cs_sec_d1::OK}
+        case OK_SIG: {
+            status_ = Q_TRAN(&Clock_Alarm_cs_sec_d2);
+            break;
+        }
+        default: {
+            status_ = Q_SUPER(&Clock_Alarm_Clock_Setting);
+            break;
+        }
+    }
+    return status_;
+}
+
+//${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::cs_sec_d2} ........
+static QState Clock_Alarm_cs_sec_d2(Clock_Alarm * const me, QEvt const * const e) {
+    QState status_;
+    switch (e->sig) {
+        //${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::cs_sec_d2::SET}
+        case SET_SIG: {
+            status_ = Q_HANDLED();
+            break;
+        }
+        //${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::cs_sec_d2::OK}
+        case OK_SIG: {
+            status_ = Q_TRAN(&Clock_Alarm_cs_format);
+            break;
+        }
+        default: {
+            status_ = Q_SUPER(&Clock_Alarm_Clock_Setting);
+            break;
+        }
+    }
+    return status_;
+}
+
+//${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::cs_format} ........
+static QState Clock_Alarm_cs_format(Clock_Alarm * const me, QEvt const * const e) {
+    QState status_;
+    switch (e->sig) {
+        //${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::cs_format::SET}
+        case SET_SIG: {
+            status_ = Q_HANDLED();
+            break;
+        }
+        default: {
+            status_ = Q_SUPER(&Clock_Alarm_Clock_Setting);
+            break;
+        }
+    }
+    return status_;
+}
+
+//${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::cs_error} .........
+static QState Clock_Alarm_cs_error(Clock_Alarm * const me, QEvt const * const e) {
+    QState status_;
+    switch (e->sig) {
+        //${HSMs::Clock_Alarm::SM::Clock::Settings::Clock_Setting::cs_error::SET}
+        case SET_SIG: {
+            status_ = Q_HANDLED();
+            break;
+        }
+        default: {
+            status_ = Q_SUPER(&Clock_Alarm_Clock_Setting);
             break;
         }
     }
@@ -244,6 +498,40 @@ static QState Clock_Alarm_Alarm_Setting(Clock_Alarm * const me, QEvt const * con
     switch (e->sig) {
         default: {
             status_ = Q_SUPER(&Clock_Alarm_Settings);
+            break;
+        }
+    }
+    return status_;
+}
+
+//${HSMs::Clock_Alarm::SM::Clock::Ticking} ...................................
+static QState Clock_Alarm_Ticking(Clock_Alarm * const me, QEvt const * const e) {
+    QState status_;
+    switch (e->sig) {
+        //${HSMs::Clock_Alarm::SM::Clock::Ticking}
+        case Q_ENTRY_SIG: {
+            Clock_Alarm_display_curr_time(me, TICKING_CURR_TIME_ROW, TICKING_CURR_TIME_COL);
+            status_ = Q_HANDLED();
+            break;
+        }
+        //${HSMs::Clock_Alarm::SM::Clock::Ticking::SET}
+        case SET_SIG: {
+            status_ = Q_TRAN(&Clock_Alarm_Clock_Setting);
+            break;
+        }
+        //${HSMs::Clock_Alarm::SM::Clock::Ticking::OK}
+        case OK_SIG: {
+            status_ = Q_TRAN(&Clock_Alarm_Alarm_Setting);
+            break;
+        }
+        //${HSMs::Clock_Alarm::SM::Clock::Ticking::TICK}
+        case TICK_SIG: {
+            Clock_Alarm_display_curr_time(me, TICKING_CURR_TIME_ROW, TICKING_CURR_TIME_COL);
+            status_ = Q_HANDLED();
+            break;
+        }
+        default: {
+            status_ = Q_SUPER(&Clock_Alarm_Clock);
             break;
         }
     }
@@ -267,6 +555,11 @@ static QState Clock_Alarm_Alarm_Notify(Clock_Alarm * const me, QEvt const * cons
     return status_;
 }
 //$enddef${HSMs::Clock_Alarm} ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//$define${HSMs::super_ClockAlarm} vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
+//${HSMs::super_ClockAlarm} ..................................................
+QHsm *const super_ClockAlarm = &Clock_Alarm_obj.super;
+//$enddef${HSMs::super_ClockAlarm} ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
@@ -275,95 +568,4 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     }
 }
 
-/*
- * Description : Decodes AM/PM information from given time in 24H format.
- * param1      : Integer time in 24H format (seconds).
- * return      : String "AM" or "PM".
- */
-const char *get_am_or_pm(uint32_t time24h)
-{
-    uint8_t h = (uint8_t)GET_HOUR(time24h);
 
-    if (h >= 12U)
-    {
-        return "PM";
-    }
-
-    return "AM";
-}
-
-/*
- * Description: Writes a message to the LCD at given row and column.
- * param1     : Message to write in C-string format.
- * param2     : Row number of the LCD.
- * param3     : Column number of the LCD.
- */
-void display_write(const char *str_, uint8_t r, uint8_t c)
-{
-    lcd_set_cursor(c, r);
-    lcd_print_string(str_);
-}
-
-/*
- * Description: Converts integer time to a C string.
- * param1     : Time represented as number of seconds.
- * param2     : Output buffer.
- * param3     : Size of output buffer.
- * format     : HH:MM:SS
- */
-void integertime_to_string(uint32_t time_,
-                              char *out_str,
-                              size_t out_size)
-{
-    uint8_t h;
-    uint8_t m;
-    uint8_t s;
-
-    h = (uint8_t)GET_HOUR(time_);
-    m = (uint8_t)GET_MIN(time_);
-    s = (uint8_t)GET_SEC(time_);
-
-    (void)snprintf(out_str, out_size, "%02u:%02u:%02u",
-                   (unsigned int)h,
-                   (unsigned int)m,
-                   (unsigned int)s);
-}
-
-/*
- * Description: Converts given integer time in 12H format to integer time 24H format
- * param1 : Integer time in 12H format
- * param2 : time format of type time_format_t
- * return : Integer time in 24H format
- */
-uint32_t convert_12hformat_to_24h(uint32_t time12h, time_format_t ampm){
-    uint8_t hour;
-    uint32_t time24h;
-    hour = GET_HOUR(time12h);
-    if(ampm == FORMAT_AM){
-        time24h = (hour == 12)? (time12h-(12UL * 3600UL)) : time12h;
-    }else{
-        time24h = (hour == 12)? time12h : (time12h +(12UL * 3600UL));
-    }
-    return time24h;
-}
-
-/*
- * Description: Converts given integer time in 24H format to integer time 12H format
- * param1 : Integer time in 24H format
- * return : Integer time in 12H format
- */
-uint32_t convert_24hformat_to_12h(uint32_t time24h){
-    uint8_t hour;
-    uint32_t time12h;
-    hour = GET_HOUR(time24h);
-
-    if(hour == 0)
-        time12h = time24h + (12UL * 3600UL);
-    else{
-        if((hour < 12UL) || (hour == 12UL))
-            return time24h;
-        else
-            time12h = time24h - (12UL * 3600UL);
-    }
-    return time12h;
-}

@@ -9,9 +9,9 @@
   <item name="backups">0</item>
  </group>
  <group name="windows">
-  <item id="HSMs::.::ClockAlarm_SM.h">-400,0,596,300</item>
-  <item id="HSMs::Clock_Alarm::SM">0,3,640,480</item>
-  <item id="HSMs::.::ClockAlarm_SM.c">0,0,699,467,*</item>
+  <item id="HSMs::.::ClockAlarm_SM.h">-371,0,596,300</item>
+  <item id="HSMs::Clock_Alarm::SM">0,0,995,467,*</item>
+  <item id="HSMs::.::ClockAlarm_SM.c">-606,16,831,467</item>
  </group>
  <group name="search">
   <item name="options">2032128</item>

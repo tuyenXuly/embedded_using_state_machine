@@ -61,7 +61,7 @@ typedef enum time_format{
     FORMAT_24H,
     FORMAT_AM,
     FORMAT_PM
-}time_format_t
+}time_format_t;
 
 #define GET_HOUR(seconds)     (seconds/3600UL)
 #define GET_MIN(seconds)      ((seconds/60UL)%60UL)
@@ -80,4 +80,9 @@ typedef enum time_format{
 //${HSMs::Clock_Alarm_ctor} ..................................................
 void Clock_Alarm_ctor(void);
 //$enddecl${HSMs::Clock_Alarm_ctor} ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//$declare${HSMs::super_ClockAlarm} vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
+//${HSMs::super_ClockAlarm} ..................................................
+extern QHsm *const super_ClockAlarm;
+//$enddecl${HSMs::super_ClockAlarm} ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #endif
