@@ -10,7 +10,7 @@
  </group>
  <group name="windows">
   <item id="HSMs::.::ClockAlarm_SM.h">-371,0,596,300</item>
-  <item id="HSMs::Clock_Alarm::SM">0,0,995,467,*</item>
+  <item id="HSMs::Clock_Alarm::SM">0,0,1053,595,*</item>
   <item id="HSMs::.::ClockAlarm_SM.c">-606,16,831,467</item>
  </group>
  <group name="search">

@@ -75,6 +75,19 @@ typedef enum time_format{
 
 #define TICKING_CURR_TIME_ROW  0
 #define TICKING_CURR_TIME_COL  3
+#define CLOCK_SETTING_TIME_ROW 0
+#define CLOCK_SETTING_TIME_COL 2
+#define CLOCK_SETTING_TIME_HOUR_D1_COL 2
+#define CLOCK_SETTING_TIME_HOUR_D2_COL 3
+#define CLOCK_SETTING_TIME_MIN_D1_COL 5
+#define CLOCK_SETTING_TIME_MIN_D2_COL 6
+#define CLOCK_SETTING_TIME_SEC_D1_COL 8
+#define CLOCK_SETTING_TIME_SEC_D2_COL 9
+#define CLOCK_SETTING_TIME_FMT_COL     11
+#define CLOCK_SETTING_ERR_MSG_ROW 1
+#define CLOCK_SETTING_ERR_MSG_COL  4
+#define CLOCK_SETTING_ERR_MSG_COL_END 9
+
 //$declare${HSMs::Clock_Alarm_ctor} vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 //${HSMs::Clock_Alarm_ctor} ..................................................
