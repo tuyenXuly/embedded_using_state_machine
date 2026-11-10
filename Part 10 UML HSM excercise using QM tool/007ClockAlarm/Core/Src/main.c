@@ -18,6 +18,10 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "i2c.h"
+#include "tim.h"
+#include "usart.h"
+#include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -33,7 +37,9 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define BTN_PAD_VALUE_SET       2
+#define BTN_PAD_VALUE_OK        1
+#define BTN_PAD_VALUE_ABRT      3
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -42,42 +48,87 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-I2C_HandleTypeDef hi2c1;
-
-TIM_HandleTypeDef htim1;
-
-UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
 CLCD_I2C_Name LCD1;
+
+typedef enum{
+    NOT_PRESSED,
+    BOUNCE,
+    PRESSED
+}button_state_t;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
-static void MX_USART2_UART_Init(void);
-static void MX_TIM1_Init(void);
-static void MX_I2C1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void QF_crit_entry_(void) {
-    __disable_irq();
-}
-
-void QF_crit_exit_(void) {
-    __enable_irq();
-}
-
 void Q_onError(char const * const module, int_t const id) {
     (void)module;
     (void)id;
     __disable_irq();
     while (1) {
     }
+}
+
+static uint8_t process_button_pad_value(uint8_t btn_pad_value)
+{
+  static button_state_t btn_sm_state = NOT_PRESSED;
+  static uint32_t curr_time = 0;
+
+  switch(btn_sm_state){
+    case NOT_PRESSED:{
+      if(btn_pad_value){
+        btn_sm_state = BOUNCE;
+        curr_time = HAL_GetTick();
+      }
+      break;
+    }
+    case BOUNCE:{
+      if(HAL_GetTick() - curr_time >= 50 ){
+        //50ms has passed 
+        if(btn_pad_value){
+          btn_sm_state = PRESSED;
+          return btn_pad_value;
+        }
+        else
+          btn_sm_state = NOT_PRESSED;
+      }
+      break;
+    }
+    case PRESSED:{
+      if(!btn_pad_value){
+        btn_sm_state = BOUNCE;
+        curr_time = HAL_GetTick();
+      }
+      break;
+    }
+
+  }
+
+  return 0;
+}
+
+    static uint32_t tick_time = 0;
+    static uint32_t alarm_check_time = 0;
+    uint8_t b1,b2,btn_pad_value;
+    QEvt ee;
+    
+    volatile uint32_t dwt_cycles = 0;
+volatile uint32_t dwt_time_us = 0;
+volatile uint32_t dwt_max_us = 0;
+
+static void DWT_Init(void)
+{
+    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+    
+    DWT->CYCCNT = 0U;
+    
+    DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
 }
 /* USER CODE END 0 */
 
@@ -113,6 +164,9 @@ int main(void)
   MX_TIM1_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
+  DWT_Init();
+  CLCD_I2C_Init(&LCD1,&hi2c1,0x4e,20,4);
+  CLCD_I2C_Clear(&LCD1);
   Clock_Alarm_ctor();
   QHSM_INIT(super_ClockAlarm, (void *)0, 0U);
   /* USER CODE END 2 */
@@ -120,16 +174,50 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
-  {
+  {      
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    uint32_t tick_time = HAL_GetTick();
-    while(HAL_GetTick() - tick_time >= 50){
-     // send TICK event
-    QEvt ee;
-    ee.sig = TICK_SIG;
+    //1. read the button pad status
+    b1 = (HAL_GPIO_ReadPin(PIN_BUTTON1_GPIO_Port, PIN_BUTTON1_Pin) == GPIO_PIN_RESET) ? 1U : 0U;
+    b2 = (HAL_GPIO_ReadPin(PIN_BUTTON2_GPIO_Port, PIN_BUTTON2_Pin) == GPIO_PIN_RESET) ? 1U : 0U;
+  
+    btn_pad_value = (b1<<1u)|b2;
+
+    //software button de-bouncing 
+    btn_pad_value = process_button_pad_value(btn_pad_value);
+  
+    while(HAL_GetTick() - alarm_check_time >= 500 ){
+    // send TICK event 
+    alarm_check_time = HAL_GetTick();
+    ee.sig = ALARM_SIG;
     QHSM_DISPATCH(super_ClockAlarm, &ee, 0U);
+    }
+
+    if(btn_pad_value){
+      if(btn_pad_value == BTN_PAD_VALUE_SET){
+        ee.sig  = SET_SIG; 
+      }else if(btn_pad_value == BTN_PAD_VALUE_OK){
+        ee.sig  = OK_SIG;
+      }else if(btn_pad_value == BTN_PAD_VALUE_ABRT){
+        ee.sig  = ABRT_SIG;
+      }else 
+      ee.sig = IGNORE_SIG;
+      
+    QHSM_DISPATCH(super_ClockAlarm, &ee, 0U);
+    }
+    
+    while(HAL_GetTick() - tick_time >= 50){
+    // send TICK event
+    tick_time = HAL_GetTick();
+    ee.sig = TICK_SIG;
+    uint32_t start_cycle = DWT->CYCCNT;
+    QHSM_DISPATCH(super_ClockAlarm, &ee, 0U);
+    dwt_cycles = DWT->CYCCNT - start_cycle;
+    dwt_time_us = dwt_cycles / (SystemCoreClock / 1000000U);
+      if (dwt_time_us > dwt_max_us) {
+          dwt_max_us = dwt_time_us;
+      }
     }
   }
   /* USER CODE END 3 */
@@ -179,158 +267,6 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-}
-
-/**
-  * @brief I2C1 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_I2C1_Init(void)
-{
-
-  /* USER CODE BEGIN I2C1_Init 0 */
-
-  /* USER CODE END I2C1_Init 0 */
-
-  /* USER CODE BEGIN I2C1_Init 1 */
-
-  /* USER CODE END I2C1_Init 1 */
-  hi2c1.Instance = I2C1;
-  hi2c1.Init.ClockSpeed = 100000;
-  hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
-  hi2c1.Init.OwnAddress1 = 0;
-  hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-  hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-  hi2c1.Init.OwnAddress2 = 0;
-  hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-  hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-  if (HAL_I2C_Init(&hi2c1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN I2C1_Init 2 */
-
-  /* USER CODE END I2C1_Init 2 */
-
-}
-
-/**
-  * @brief TIM1 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_TIM1_Init(void)
-{
-
-  /* USER CODE BEGIN TIM1_Init 0 */
-
-  /* USER CODE END TIM1_Init 0 */
-
-  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
-  TIM_MasterConfigTypeDef sMasterConfig = {0};
-
-  /* USER CODE BEGIN TIM1_Init 1 */
-
-  /* USER CODE END TIM1_Init 1 */
-  htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 8400-1;
-  htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 1000-1;
-  htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim1.Init.RepetitionCounter = 0;
-  htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  if (HAL_TIM_Base_Init(&htim1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-  if (HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
-  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-  if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN TIM1_Init 2 */
-
-  /* USER CODE END TIM1_Init 2 */
-
-}
-
-/**
-  * @brief USART2 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_USART2_UART_Init(void)
-{
-
-  /* USER CODE BEGIN USART2_Init 0 */
-
-  /* USER CODE END USART2_Init 0 */
-
-  /* USER CODE BEGIN USART2_Init 1 */
-
-  /* USER CODE END USART2_Init 1 */
-  huart2.Instance = USART2;
-  huart2.Init.BaudRate = 115200;
-  huart2.Init.WordLength = UART_WORDLENGTH_8B;
-  huart2.Init.StopBits = UART_STOPBITS_1;
-  huart2.Init.Parity = UART_PARITY_NONE;
-  huart2.Init.Mode = UART_MODE_TX_RX;
-  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
-  if (HAL_UART_Init(&huart2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN USART2_Init 2 */
-
-  /* USER CODE END USART2_Init 2 */
-
-}
-
-/**
-  * @brief GPIO Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_GPIO_Init(void)
-{
-  GPIO_InitTypeDef GPIO_InitStruct = {0};
-  /* USER CODE BEGIN MX_GPIO_Init_1 */
-
-  /* USER CODE END MX_GPIO_Init_1 */
-
-  /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOC_CLK_ENABLE();
-  __HAL_RCC_GPIOH_CLK_ENABLE();
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOB_CLK_ENABLE();
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin : B1_Pin */
-  GPIO_InitStruct.Pin = B1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : LD2_Pin */
-  GPIO_InitStruct.Pin = LD2_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
-
-  /* USER CODE BEGIN MX_GPIO_Init_2 */
-
-  /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */

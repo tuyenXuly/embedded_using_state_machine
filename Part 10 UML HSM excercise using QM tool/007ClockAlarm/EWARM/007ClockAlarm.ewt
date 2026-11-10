@@ -1439,6 +1439,12 @@
             <group>
                 <name>Core</name>
                 <file>
+                    <name>$PROJ_DIR$\..\Core\Src\gpio.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Core\Src\i2c.c</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\..\Core\Src\main.c</name>
                 </file>
                 <file>
@@ -1446,6 +1452,12 @@
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\Core\Src\stm32f4xx_it.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Core\Src\tim.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\Core\Src\usart.c</name>
                 </file>
             </group>
         </group>
@@ -1486,6 +1498,12 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2c.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_i2c_ex.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr.c</name>
@@ -1582,6 +1600,9 @@
                         </file>
                         <file>
                             <name>$PROJ_DIR$\..\Third_party\qp\qpc\ports\arm-cm\qv\iar\qs_port.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\..\Third_party\qp\qpc\ports\arm-cm\qv\iar\qv_port.c</name>
                         </file>
                     </group>
                 </group>

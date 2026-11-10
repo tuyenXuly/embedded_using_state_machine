@@ -1,39 +1,39 @@
-"C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\Third_party\qp\qpc\src\qf\qf_qact.c"
+"D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\Third_party\qp\qpc\src\qf\qf_qact.c"
 -std=c11
 -ferror-limit=0
 -fbracket-depth=512
 -funsigned-char
 -MD
 -MF
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\007ClockAlarm\BrowseInfo\qpc\src\qf\qf_qact.pbi.dep
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\007ClockAlarm\BrowseInfo\qpc\src\qf\qf_qact.pbi.dep
 -o
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\007ClockAlarm\BrowseInfo\qpc\src\qf\qf_qact.pbi
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\007ClockAlarm\BrowseInfo\qpc\src\qf\qf_qact.pbi
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\Third_party\qp\qpc\src\qf
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\Third_party\qp\qpc\src\qf
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM/../Core/Inc\
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM/../Core/Inc\
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM/../Drivers/STM32F4xx_HAL_Driver/Inc\
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM/../Drivers/STM32F4xx_HAL_Driver/Inc\
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM/../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy\
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM/../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy\
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM/../Drivers/CMSIS/Device/ST/STM32F4xx/Include\
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM/../Drivers/CMSIS/Device/ST/STM32F4xx/Include\
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM/../Drivers/CMSIS/Include\
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM/../Drivers/CMSIS/Include\
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\..\qm\
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\..\qm\
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\src\qf\
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\src\qf\
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\ports\arm-cm\qv\iar\
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\ports\arm-cm\qv\iar\
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\ports\arm-cm\config\
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\ports\arm-cm\config\
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\include\
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\..\Third_party\qp\qpc\include\
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\..\qm\
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\..\qm\
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\..\lib\
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\EWARM\..\lib\
 -I
 C:\Program Files\IAR Systems\Embedded Workbench 9.1\arm\inc\c\aarch32
 -I
@@ -41,29 +41,29 @@ C:\Program Files\IAR Systems\Embedded Workbench 9.1\arm\inc
 -I
 C:\Program Files\IAR Systems\Embedded Workbench 9.1\arm\inc\c
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\Core\Inc
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\Core\Inc
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\Drivers\STM32F4xx_HAL_Driver\Inc
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\Drivers\STM32F4xx_HAL_Driver\Inc
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\Drivers\CMSIS\Include
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\Drivers\CMSIS\Include
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\qm
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\qm
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\Third_party\qp\qpc\src\qf
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\Third_party\qp\qpc\src\qf
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\Third_party\qp\qpc\ports\arm-cm\qv\iar
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\Third_party\qp\qpc\ports\arm-cm\qv\iar
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\Third_party\qp\qpc\ports\arm-cm\config
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\Third_party\qp\qpc\ports\arm-cm\config
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\Third_party\qp\qpc\include
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\Third_party\qp\qpc\include
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\qm
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\qm
 -I
-C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_state_machine-master\Part 10 UML HSM excercise using QM tool\007ClockAlarm\lib
+D:\Embedded using State Machines\Part 10 UML HSM excercise using QM tool\007ClockAlarm\lib
 -D__CHAR_BITS__=8
 -D__CHAR_MAX__=0xff
 -D__CHAR_MIN__=0
@@ -303,6 +303,7 @@ C:\Users\tuyenph\Downloads\embedded_using_state_machine-master\embedded_using_st
 -D__DEF_STACK_MEM_INDEX__=0
 -D__PRAGMA_PACK_ON__=1
 -D__MULTIPLE_INHERITANCE__=1
+-D__FOR_DEBUG__=
 -D__AAPCS_VFP__=1
 -D__ARM4TM__=4
 -D__ARM5TM__=5
