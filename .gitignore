@@ -1,47 +1,107 @@
-# Compiled binaries
+# ==========================================================
+# 1. Compiled Binaries & Build Outputs (Common)
+# ==========================================================
 *.o
-*.bin
+*.obj
+*.d
+*.crf
 *.elf
+*.axf
 *.hex
+*.bin
 *.map
 *.out
-*.obj
+*.lst
+*.htm
+*.build_log.htm
+*.dep
 
-# Trash
-*.bak
-thumbs.db
-*.~*
+# ==========================================================
+# 2. IAR Embedded Workbench (EWARM)
+# ==========================================================
+# Ignore entire output folders (covers STM32CubeMX project-named folders)
+**/Obj/
+**/List/
+**/Exe/
+**/BrowseInfo/
+**/Debug/
+**/Release/
+**/settings/
 
-# IAR Settings
-**/settings/*.crun
-**/settings/*.dbgdt
-**/settings/*.cspy
-**/settings/*.cspy.*
-**/settings/*.xcl
-**/settings/*.dni
-**/settings/*.wsdt
-**/settings/*.wspos
-
-# IAR Debug Exe
-**/Exe/*.sim
-
-# IAR Debug Obj
-**/Obj/*.pbd
-**/Obj/*.pbd.*
-**/Obj/*.pbi
-**/Obj/*.pbi.*
-
-# IAR project "Debug" directory
-Debug/
-
-# IAR project "Release" directory
-Release/
-
-# IAR project settings directory
-settings/
-
-# IAR backup files
+# IAR temporary, backup & static analysis files
+*.ewt
+*.dni
+*.wsdt
+*.wspos
+*.crun
+*.dbgdt
+*.cspy
+*.cspy.*
+*.pbi
+*.pbd
+*.pbw
+*.ninja*
 Backup*
 
-# IAR .dep files
-*.dep
+# ==========================================================
+# 3. Keil uVision (MDK-ARM)
+# ==========================================================
+# Ignore Keil output directories anywhere in the repo
+**/Listings/
+**/Objects/
+
+# User-specific uVision session files (Keep ONLY *.uvprojx and *.uvmpw)
+*.opt
+*.uvopt
+*.uvoptx
+*.uvgui
+*.uvgui.*
+*.uvguix
+*.uvguix.*
+
+# Keil intermediate & debugger files
+*.cod
+*.i
+*.m51
+*.m66
+*.scr
+*.b[0-3][0-9]
+*.h86
+*.sbr
+*._ia
+*.__i
+*._ii
+*.cdb
+*.ic
+*.lin
+*.lnp
+*.orc
+*.pack
+*.plg
+*.sfd
+*.sfr
+*.tra
+*.fed
+*.l1p
+*.l2p
+*.iex
+
+# ==========================================================
+# 4. OS & Editor Trash
+# ==========================================================
+*.bak
+*.~*
+Thumbs.db
+.DS_Store
+.vscode/
+
+# ==========================================================
+# 5. Exceptions (Force track important files if needed)
+# ==========================================================
+# Always keep IAR project/workspace and Keil project files
+!*.ewp
+!*.eww
+!*.icf
+!*.uvprojx
+!*.uvmpw
+!*.sct
